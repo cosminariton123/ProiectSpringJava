@@ -20,4 +20,27 @@ public class Truck {
     @Column(name = "km")
     private Integer km;
 
+    public Integer getTruckId() {
+        return truckId;
+    }
+
+    public void setTruckId(Integer truckId) {
+        this.truckId = truckId;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public Integer getKm() {
+        return km;
+    }
+
+    public void setKm(Integer km) {
+        this.km = km;
+    }
 }

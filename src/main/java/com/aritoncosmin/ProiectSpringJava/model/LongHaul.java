@@ -19,4 +19,37 @@ public class LongHaul {
     @ManyToOne
     @JoinColumn(name = "truck")
     private Truck truck;
+
+
+    public Integer getLongHaulId() {
+        return longHaulId;
+    }
+
+    public void setLongHaulId(Integer longHaulId) {
+        this.longHaulId = longHaulId;
+    }
+
+    public String getStartingAddress() {
+        return startingAddress;
+    }
+
+    public void setStartingAddress(String startingAddress) {
+        this.startingAddress = startingAddress;
+    }
+
+    public String getDestinationAddress() {
+        return destinationAddress;
+    }
+
+    public void setDestinationAddress(String destinationAddress) {
+        this.destinationAddress = destinationAddress;
+    }
+
+    public Truck getTruck() {
+        return truck;
+    }
+
+    public void setTruck(Truck truck) {
+        this.truck = truck;
+    }
 }

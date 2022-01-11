@@ -2,6 +2,8 @@ package com.aritoncosmin.ProiectSpringJava.model;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "driver")
@@ -23,5 +25,9 @@ public class Driver {
     @OneToOne
     @JoinColumn(name = "truck_id")
     private Truck truck;
+
+    @ManyToMany
+    @JoinTable
+    private List<Playlist> playlists = new ArrayList<>();
 
 }
