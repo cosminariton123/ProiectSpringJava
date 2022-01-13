@@ -41,12 +41,4 @@ public class Song {
         this.duration = duration;
     }
 
-    @Override
-    public String toString() {
-        return "Song{" +
-                "songId=" + songId +
-                ", name='" + name + '\'' +
-                ", duration=" + duration +
-                '}';
-    }
 }
