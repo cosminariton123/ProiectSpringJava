@@ -1,6 +1,7 @@
 package com.aritoncosmin.ProiectSpringJava.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "long_hauls")
@@ -17,9 +18,20 @@ public class LongHaul {
     private String destinationAddress;
 
     @ManyToOne
-    @JoinColumn(name = "truck")
+    @JoinColumn(name = "truck_id")
     private Truck truck;
 
+    @ManyToMany
+    @JoinTable
+    private List<Hotel> hotelList;
+
+    public List<Hotel> getHotelList() {
+        return hotelList;
+    }
+
+    public void setHotelList(List<Hotel> hotelList) {
+        this.hotelList = hotelList;
+    }
 
     public Integer getLongHaulId() {
         return longHaulId;

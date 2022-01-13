@@ -47,10 +47,10 @@ public class ProiectSpringJavaApplication implements CommandLineRunner {
 		Song s1 = new Song();
 		Song s2 = new Song();
 
-		s1.setName("coco");
+		s1.setName("Burning Love");
 		s1.setDuration(69);
 
-		s2.setName("Mirciu");
+		s2.setName("Never gonna give you up");
 		s2.setDuration(420);
 
 		songRepository.save(s1);
