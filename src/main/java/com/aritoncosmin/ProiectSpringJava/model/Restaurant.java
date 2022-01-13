@@ -16,7 +16,7 @@ public class Restaurant {
     @Column(name = "rating")
     private Integer rating;
 
-    @OneToOne(mappedBy = "hotelId")
+    @OneToOne(mappedBy = "restaurant")
     private Hotel hotel;
 
     public Integer getRestaurantsId() {

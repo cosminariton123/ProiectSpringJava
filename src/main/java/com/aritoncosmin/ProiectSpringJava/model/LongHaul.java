@@ -1,6 +1,7 @@
 package com.aritoncosmin.ProiectSpringJava.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class LongHaul {
 
     @ManyToMany
     @JoinTable
-    private List<Hotel> hotelList;
+    private List<Hotel> hotelList = new ArrayList<>();
 
     public List<Hotel> getHotelList() {
         return hotelList;

@@ -1,6 +1,7 @@
 package com.aritoncosmin.ProiectSpringJava.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Hotel {
     private Restaurant restaurant;
 
     @ManyToMany(mappedBy = "hotelList")
-    private List<LongHaul> longHaulList;
+    private List<LongHaul> longHaulList = new ArrayList<>();
 
     public Integer getHotelId() {
         return hotelId;
