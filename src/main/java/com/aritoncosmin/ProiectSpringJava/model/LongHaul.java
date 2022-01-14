@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "long_hauls")
+@Table(name = "Long_Hauls")
 public class LongHaul {
 
     @Id

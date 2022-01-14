@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "driver")
+@Table(name = "Drivers")
 public class Driver {
 
     @Id

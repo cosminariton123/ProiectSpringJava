@@ -6,7 +6,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "trucks")
+@Table(name = "Trucks")
 public class Truck {
 
     @Id

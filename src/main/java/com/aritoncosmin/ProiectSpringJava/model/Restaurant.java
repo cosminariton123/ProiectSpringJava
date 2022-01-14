@@ -3,7 +3,7 @@ package com.aritoncosmin.ProiectSpringJava.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "restaurants")
+@Table(name = "Restaurants")
 public class Restaurant {
 
     @Id
@@ -18,6 +18,18 @@ public class Restaurant {
 
     @OneToOne(mappedBy = "restaurant")
     private Hotel hotel;
+
+    @OneToOne
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
 
     public Integer getRestaurantsId() {
         return restaurantsId;

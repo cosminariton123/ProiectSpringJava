@@ -3,7 +3,7 @@ package com.aritoncosmin.ProiectSpringJava.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "songs")
+@Table(name = "Songs")
 public class Song {
 
     @Id
