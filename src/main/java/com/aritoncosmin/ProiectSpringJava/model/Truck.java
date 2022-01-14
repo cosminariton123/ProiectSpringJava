@@ -11,7 +11,6 @@ public class Truck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "truck_id")
     private Integer truckId;
 
     @Column(name = "brand")

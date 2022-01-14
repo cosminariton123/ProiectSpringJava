@@ -4,4 +4,8 @@ import com.aritoncosmin.ProiectSpringJava.model.Truck;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TruckRepository extends JpaRepository<Truck, Integer> {
+
+    Truck findTruckByTruckId(Integer id);
+
+    Integer deleteTruckByTruckId(Integer id);
 }

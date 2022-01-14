@@ -1,20 +1,15 @@
 package com.aritoncosmin.ProiectSpringJava;
 
-import com.aritoncosmin.ProiectSpringJava.model.LongHaul;
+import com.aritoncosmin.ProiectSpringJava.model.Driver;
 import com.aritoncosmin.ProiectSpringJava.model.Playlist;
 import com.aritoncosmin.ProiectSpringJava.model.Song;
 import com.aritoncosmin.ProiectSpringJava.model.Truck;
-import com.aritoncosmin.ProiectSpringJava.repository.LongHaulRepository;
-import com.aritoncosmin.ProiectSpringJava.repository.PlaylistRepository;
-import com.aritoncosmin.ProiectSpringJava.repository.SongRepository;
-import com.aritoncosmin.ProiectSpringJava.repository.TruckRepository;
+import com.aritoncosmin.ProiectSpringJava.repository.*;
+import com.aritoncosmin.ProiectSpringJava.service.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.lang.invoke.SwitchPoint;
-import java.util.List;
 
 @SpringBootApplication
 public class ProiectSpringJavaApplication implements CommandLineRunner {
@@ -29,7 +24,13 @@ public class ProiectSpringJavaApplication implements CommandLineRunner {
 	private TruckRepository truckRepository;
 
 	@Autowired
+	private ManagementService managementService;
+
+	@Autowired
 	private LongHaulRepository longHaulRepository;
+
+	@Autowired
+	private DriverRepository driverRepository;
 
 	/*
 		Driver -- Truck  => 1 to 1
@@ -65,24 +66,16 @@ public class ProiectSpringJavaApplication implements CommandLineRunner {
 
 
 
-
 		Truck t1 = new Truck();
 		t1.setBrand("Man");
 		t1.setKm(150);
 
 		truckRepository.save(t1);
 
-		LongHaul l1 = new LongHaul();
-		LongHaul l2 = new LongHaul();
-		l1.setTruck(t1);
-		l1.setDestinationAddress("Pula");
-		l1.setStartingAddress("Romania");
-		l2.setTruck(t1);
-		l2.setStartingAddress("Romania");
-		l2.setDestinationAddress("Atena");
 
-		longHaulRepository.save(l1);
-		longHaulRepository.save(l2);
+		Driver d1 = new Driver();
+		d1.setTruck(t1);
+		driverRepository.save(d1);
 
 
 	}
