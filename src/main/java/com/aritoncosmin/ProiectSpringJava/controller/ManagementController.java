@@ -1,11 +1,9 @@
 package com.aritoncosmin.ProiectSpringJava.controller;
 
-import com.aritoncosmin.ProiectSpringJava.dtos.DriverCreateDTO;
-import com.aritoncosmin.ProiectSpringJava.dtos.DriverModifyDTO;
-import com.aritoncosmin.ProiectSpringJava.dtos.TruckCreateDTO;
-import com.aritoncosmin.ProiectSpringJava.dtos.TruckModifyDTO;
+import com.aritoncosmin.ProiectSpringJava.dtos.*;
 import com.aritoncosmin.ProiectSpringJava.mappers.ManagementMapper;
 import com.aritoncosmin.ProiectSpringJava.model.Driver;
+import com.aritoncosmin.ProiectSpringJava.model.LongHaul;
 import com.aritoncosmin.ProiectSpringJava.model.Truck;
 import com.aritoncosmin.ProiectSpringJava.service.ManagementService;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +72,32 @@ public class ManagementController {
     public ResponseEntity<Driver> deleteDriver(@PathVariable Integer id){
         Driver deletedDriver = managementService.deleteDriverById(id);
         return ResponseEntity.ok().body(deletedDriver);
+    }
+
+    @GetMapping("/long_haul/{id}")
+    public ResponseEntity<LongHaul> getLongHaul(@PathVariable Integer id){
+        LongHaul longHaul = managementService.findLongHaulById(id);
+        return ResponseEntity.ok().body(longHaul);
+    }
+
+    @PostMapping("/long_haul")
+    public ResponseEntity<LongHaul> saveNewLongHaul(@RequestBody @Valid LongHaulCreateDTO longHaulCreateDTO){
+        LongHaul longHaul = managementMapper.LongHaulCreateDTOToLongHaul(longHaulCreateDTO);
+        LongHaul savedLongHaul = managementService.saveLongHaul(longHaul);
+        return ResponseEntity.created(URI.create("/management/long_haul/" + savedLongHaul.getId())).body(savedLongHaul);
+    }
+
+    @PutMapping("/long_haul")
+    public ResponseEntity<LongHaul> modifyLongHaul(@RequestBody @Valid LongHaulModifyDTO longHaulModifyDTO){
+        LongHaul longHaul = managementMapper.LongHaulModifyDTOToLongHaul(longHaulModifyDTO);
+        LongHaul savedLongHaul = managementService.modifyLongHaul(longHaul);
+        return ResponseEntity.ok().body(savedLongHaul);
+    }
+
+    @DeleteMapping("/long_haul/{id}")
+    public ResponseEntity<LongHaul> deleteLongHaul(@PathVariable Integer id){
+        LongHaul deletedLongHaul = managementService.deleteLongHaulById(id);
+        return ResponseEntity.ok().body(deletedLongHaul);
     }
 
 }

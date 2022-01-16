@@ -1,11 +1,10 @@
 package com.aritoncosmin.ProiectSpringJava.mappers;
 
-import com.aritoncosmin.ProiectSpringJava.dtos.DriverCreateDTO;
-import com.aritoncosmin.ProiectSpringJava.dtos.DriverModifyDTO;
-import com.aritoncosmin.ProiectSpringJava.dtos.TruckCreateDTO;
-import com.aritoncosmin.ProiectSpringJava.dtos.TruckModifyDTO;
+import com.aritoncosmin.ProiectSpringJava.dtos.*;
 import com.aritoncosmin.ProiectSpringJava.model.Driver;
+import com.aritoncosmin.ProiectSpringJava.model.LongHaul;
 import com.aritoncosmin.ProiectSpringJava.model.Truck;
+import com.aritoncosmin.ProiectSpringJava.service.HousingService;
 import com.aritoncosmin.ProiectSpringJava.service.ManagementService;
 import com.aritoncosmin.ProiectSpringJava.service.MusicService;
 import org.springframework.stereotype.Component;
@@ -15,10 +14,12 @@ public class ManagementMapper {
 
     MusicService musicService;
     ManagementService managementService;
+    HousingService housingService;
 
-    public ManagementMapper(MusicService musicService, ManagementService managementService){
+    public ManagementMapper(MusicService musicService, ManagementService managementService, HousingService  housingService){
         this.musicService = musicService;
         this.managementService = managementService;
+        this.housingService = housingService;
     }
 
     public Truck TruckCreateDTOToTruck(TruckCreateDTO truckCreateDTO){
@@ -45,8 +46,6 @@ public class ManagementMapper {
         Truck truck = managementService.findTruckById(driverCreateDTO.getTruckId());
         driver.setTruck(truck);
 
-        System.out.println(driverCreateDTO);
-
         for (Integer playlistId:
              driverCreateDTO.getPlaylistIds()) {
             driver.getPlaylists().add(musicService.findPlaylistById(playlistId));
@@ -69,5 +68,35 @@ public class ManagementMapper {
             driver.getPlaylists().add(musicService.findPlaylistById(playlistId));
         }
         return driver;
+    }
+
+    public LongHaul LongHaulCreateDTOToLongHaul(LongHaulCreateDTO longHaulCreateDTO){
+        LongHaul longHaul = new LongHaul();
+        longHaul.setStartingAddress(longHaulCreateDTO.getStartingAddress());
+        longHaul.setDestinationAddress(longHaulCreateDTO.getDestinationAddress());
+
+        Truck truck = managementService.findTruckById(longHaulCreateDTO.getTruckId());
+        longHaul.setTruck(truck);
+
+        for (Integer hotelId:
+             longHaulCreateDTO.getHotelListIds()) {
+            longHaul.getHotelList().add(housingService.findHotelById(hotelId));
+        }
+        return longHaul;
+    }
+
+    public LongHaul LongHaulModifyDTOToLongHaul(LongHaulModifyDTO longHaulModifyDTO){
+        LongHaul longHaul = new LongHaul();
+        longHaul.setStartingAddress(longHaulModifyDTO.getStartingAddress());
+        longHaul.setDestinationAddress(longHaulModifyDTO.getDestinationAddress());
+
+        Truck truck = managementService.findTruckById(longHaulModifyDTO.getTruckId());
+        longHaul.setTruck(truck);
+
+        for (Integer hotelId:
+             longHaulModifyDTO.getHotelListIds()) {
+            longHaul.getHotelList().add(housingService.findHotelById(hotelId));
+        }
+        return longHaul;
     }
 }

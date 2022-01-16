@@ -1,9 +1,6 @@
 package com.aritoncosmin.ProiectSpringJava;
 
-import com.aritoncosmin.ProiectSpringJava.model.Driver;
-import com.aritoncosmin.ProiectSpringJava.model.Playlist;
-import com.aritoncosmin.ProiectSpringJava.model.Song;
-import com.aritoncosmin.ProiectSpringJava.model.Truck;
+import com.aritoncosmin.ProiectSpringJava.model.*;
 import com.aritoncosmin.ProiectSpringJava.repository.*;
 import com.aritoncosmin.ProiectSpringJava.service.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,9 @@ public class ProiectSpringJavaApplication implements CommandLineRunner {
 
 	@Autowired
 	private LongHaulRepository longHaulRepository;
+
+	@Autowired
+	private HotelRepository hotelRepository;
 
 	@Autowired
 	private DriverRepository driverRepository;
@@ -91,6 +91,14 @@ public class ProiectSpringJavaApplication implements CommandLineRunner {
 		d1.getPlaylists().add(p2);
 		driverRepository.save(d1);
 
+		Hotel h1 = new Hotel();
+		h1.setName("a");
+		hotelRepository.save(h1);
 
+		LongHaul longHaul = new LongHaul();
+		longHaul.setTruck(t1);
+		longHaul.getHotelList().add(h1);
+		longHaul.setDestinationAddress("a");
+		longHaulRepository.save(longHaul);
 	}
 }

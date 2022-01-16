@@ -98,7 +98,7 @@ public class ManagementService {
         foundDriver.setAge(driver.getAge());
         foundDriver.setLastName(driver.getLastName());
 
-        return foundDriver;
+        return saveDriver(foundDriver);
     }
 
     @Transactional
@@ -110,5 +110,38 @@ public class ManagementService {
             return deletedDriver;
 
         throw new InternalServerError("Deleted count <= 0, driver with id " + deletedDriver.getId() + " still exists");
+    }
+
+    public LongHaul findLongHaulById(Integer id){
+        LongHaul longHaul = longHaulRepository.findLongHaulById(id);
+
+        if (longHaul == null)
+            throw new NotFoundException("Long haul with id " + id + " not found");
+
+        return longHaul;
+    }
+
+    public LongHaul saveLongHaul(LongHaul longHaul){
+        return longHaulRepository.save(longHaul);
+    }
+
+    public LongHaul modifyLongHaul(LongHaul longHaul){
+        LongHaul foundLongHaul = findLongHaulById(longHaul.getId());
+        foundLongHaul.setStartingAddress(longHaul.getStartingAddress());
+        foundLongHaul.setDestinationAddress(longHaul.getDestinationAddress());
+        foundLongHaul.setTruck(longHaul.getTruck());
+        foundLongHaul.setHotelList(longHaul.getHotelList());
+        return saveLongHaul(foundLongHaul);
+    }
+
+    @Transactional
+    public LongHaul deleteLongHaulById(Integer id){
+        LongHaul deletedLongHaul = findLongHaulById(id);
+        Integer deletedCount = longHaulRepository.deleteLongHaulById(id);
+
+        if (deletedCount > 0)
+            return deletedLongHaul;
+
+        throw new InternalServerError("Deleted count <=0, long haul with id " + id + " still exists");
     }
 }

@@ -9,4 +9,8 @@ public interface LongHaulRepository extends JpaRepository<LongHaul, Integer> {
 
     List<LongHaul> findLongHaulsByTruckId(Integer id);
 
+    LongHaul findLongHaulById(Integer id);
+
+    Integer deleteLongHaulById(Integer id);
+
 }
