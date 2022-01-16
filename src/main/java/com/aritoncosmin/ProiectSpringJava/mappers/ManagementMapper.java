@@ -3,6 +3,7 @@ package com.aritoncosmin.ProiectSpringJava.mappers;
 import com.aritoncosmin.ProiectSpringJava.dtos.DriverCreateDTO;
 import com.aritoncosmin.ProiectSpringJava.dtos.DriverModifyDTO;
 import com.aritoncosmin.ProiectSpringJava.dtos.TruckCreateDTO;
+import com.aritoncosmin.ProiectSpringJava.dtos.TruckModifyDTO;
 import com.aritoncosmin.ProiectSpringJava.model.Driver;
 import com.aritoncosmin.ProiectSpringJava.model.Truck;
 import com.aritoncosmin.ProiectSpringJava.service.ManagementService;
@@ -24,6 +25,14 @@ public class ManagementMapper {
         Truck truck = new Truck();
         truck.setBrand(truckCreateDTO.getBrand());
         truck.setKm(truckCreateDTO.getKm());
+        return truck;
+    }
+
+    public Truck TruckModifyDTOToTruck(TruckModifyDTO truckModifyDTO){
+        Truck truck = new Truck();
+        truck.setBrand(truckModifyDTO.getBrand());
+        truck.setKm(truckModifyDTO.getKm());
+        truck.setId(truckModifyDTO.getId());
         return truck;
     }
 

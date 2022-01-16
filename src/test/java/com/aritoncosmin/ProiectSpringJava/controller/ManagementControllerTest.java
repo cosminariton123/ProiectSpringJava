@@ -2,6 +2,7 @@ package com.aritoncosmin.ProiectSpringJava.controller;
 
 import com.aritoncosmin.ProiectSpringJava.dtos.DriverCreateDTO;
 import com.aritoncosmin.ProiectSpringJava.dtos.TruckCreateDTO;
+import com.aritoncosmin.ProiectSpringJava.dtos.TruckModifyDTO;
 import com.aritoncosmin.ProiectSpringJava.mappers.ManagementMapper;
 import com.aritoncosmin.ProiectSpringJava.model.Driver;
 import com.aritoncosmin.ProiectSpringJava.model.Truck;
@@ -89,9 +90,14 @@ public class ManagementControllerTest {
         modifiedTruck.setId(1);
         modifiedTruck.setBrand("a");
 
-        when(managementService.modifyTruck(modifiedTruck)).thenReturn(modifiedTruck);
+        TruckModifyDTO truckModifyDTO = new TruckModifyDTO();
+        truckModifyDTO.setId(1);
+        truckModifyDTO.setBrand("a");
 
-        ResponseEntity<Truck> result = managementController.modifyTruck(modifiedTruck);
+        when(managementService.modifyTruck(modifiedTruck)).thenReturn(modifiedTruck);
+        when(managementMapper.TruckModifyDTOToTruck(truckModifyDTO)).thenReturn(modifiedTruck);
+
+        ResponseEntity<Truck> result = managementController.modifyTruck(truckModifyDTO);
 
         assertNotNull(result);
         assertEquals(modifiedTruck.getBrand(), result.getBody().getBrand());

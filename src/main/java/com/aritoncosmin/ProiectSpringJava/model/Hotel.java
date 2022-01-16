@@ -22,8 +22,6 @@ public class Hotel {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @ManyToMany(mappedBy = "hotelList")
-    private List<LongHaul> longHaulList = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -57,11 +55,4 @@ public class Hotel {
         this.restaurant = restaurant;
     }
 
-    public List<LongHaul> getLongHaulList() {
-        return longHaulList;
-    }
-
-    public void setLongHaulList(List<LongHaul> longHaulList) {
-        this.longHaulList = longHaulList;
-    }
 }

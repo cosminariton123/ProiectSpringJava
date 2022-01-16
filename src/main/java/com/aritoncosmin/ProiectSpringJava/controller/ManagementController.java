@@ -3,6 +3,7 @@ package com.aritoncosmin.ProiectSpringJava.controller;
 import com.aritoncosmin.ProiectSpringJava.dtos.DriverCreateDTO;
 import com.aritoncosmin.ProiectSpringJava.dtos.DriverModifyDTO;
 import com.aritoncosmin.ProiectSpringJava.dtos.TruckCreateDTO;
+import com.aritoncosmin.ProiectSpringJava.dtos.TruckModifyDTO;
 import com.aritoncosmin.ProiectSpringJava.mappers.ManagementMapper;
 import com.aritoncosmin.ProiectSpringJava.model.Driver;
 import com.aritoncosmin.ProiectSpringJava.model.Truck;
@@ -38,7 +39,8 @@ public class ManagementController {
     }
 
     @PutMapping("/truck")
-    public ResponseEntity<Truck> modifyTruck(@RequestBody Truck truck){
+    public ResponseEntity<Truck> modifyTruck(@RequestBody TruckModifyDTO truckModifyDTO){
+        Truck truck = managementMapper.TruckModifyDTOToTruck(truckModifyDTO);
         Truck savedTruck = managementService.modifyTruck(truck);
         return ResponseEntity.ok().body(savedTruck);
     }
@@ -62,10 +64,16 @@ public class ManagementController {
     }
 
     @PutMapping("/driver")
-    public ResponseEntity<Driver> modifyDriver(@RequestBody DriverModifyDTO driverModifyDTO){
+    public ResponseEntity<Driver> modifyDriver(@RequestBody @Valid DriverModifyDTO driverModifyDTO){
         Driver driver = managementMapper.DriverModifyDTOToDriver(driverModifyDTO);
         Driver savedDriver = managementService.modifyDriver(driver);
         return ResponseEntity.ok().body(savedDriver);
+    }
+
+    @DeleteMapping("/driver/{id}")
+    public ResponseEntity<Driver> deleteDriver(@PathVariable Integer id){
+        Driver deletedDriver = managementService.deleteDriverById(id);
+        return ResponseEntity.ok().body(deletedDriver);
     }
 
 }

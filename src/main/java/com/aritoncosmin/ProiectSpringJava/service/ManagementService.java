@@ -70,7 +70,7 @@ public class ManagementService {
         if (deletedCount > 0)
             return deletedTruck;
 
-        throw new InternalServerError("Deleted count <= 0, but truck with id " + deletedTruck.getId() + " exists");
+        throw new InternalServerError("Deleted count <= 0, truck with id " + deletedTruck.getId() + " still exists");
     }
 
     public Driver findDriverById(Integer driverId){
@@ -99,5 +99,16 @@ public class ManagementService {
         foundDriver.setLastName(driver.getLastName());
 
         return foundDriver;
+    }
+
+    @Transactional
+    public Driver deleteDriverById(Integer id){
+        Driver deletedDriver = findDriverById(id);
+        Integer deletedCount = driverRepository.deleteDriverById(id);
+
+        if (deletedCount > 0)
+            return deletedDriver;
+
+        throw new InternalServerError("Deleted count <= 0, driver with id " + deletedDriver.getId() + " still exists");
     }
 }
