@@ -8,7 +8,7 @@ public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer inventoryId;
+    private Integer id;
 
     @Column(name = "radiator")
     private Integer radiatorQuantity;
@@ -22,12 +22,12 @@ public class Inventory {
     @Column(name = "windshield")
     private Integer windshieldQuantity;
 
-    public Integer getInventoryId() {
-        return inventoryId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setInventoryId(Integer inventoryId) {
-        this.inventoryId = inventoryId;
+    public void setId(Integer inventoryId) {
+        this.id = inventoryId;
     }
 
     public Integer getRadiatorQuantity() {

@@ -10,7 +10,7 @@ public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer hotelId;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -25,12 +25,12 @@ public class Hotel {
     @ManyToMany(mappedBy = "hotelList")
     private List<LongHaul> longHaulList = new ArrayList<>();
 
-    public Integer getHotelId() {
-        return hotelId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setHotelId(Integer hotelId) {
-        this.hotelId = hotelId;
+    public void setId(Integer hotelId) {
+        this.id = hotelId;
     }
 
     public String getName() {

@@ -8,7 +8,7 @@ public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer songId;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -17,12 +17,12 @@ public class Song {
     private Integer duration;
 
 
-    public Integer getSongId() {
-        return songId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSongId(Integer songId) {
-        this.songId = songId;
+    public void setId(Integer songId) {
+        this.id = songId;
     }
 
     public String getName() {

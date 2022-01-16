@@ -1,8 +1,6 @@
 package com.aritoncosmin.ProiectSpringJava.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -11,7 +9,7 @@ public class Truck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer truckId;
+    private Integer id;
 
     @Column(name = "brand")
     private String brand;
@@ -19,12 +17,12 @@ public class Truck {
     @Column(name = "km")
     private Integer km;
 
-    public Integer getTruckId() {
-        return truckId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setTruckId(Integer truckId) {
-        this.truckId = truckId;
+    public void setId(Integer truckId) {
+        this.id = truckId;
     }
 
     public String getBrand() {

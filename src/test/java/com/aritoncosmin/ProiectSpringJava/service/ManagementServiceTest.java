@@ -41,13 +41,13 @@ public class ManagementServiceTest {
     @DisplayName("Running find by id Truck in a happy flow")
     void findByIdHappyFlow(){
         Truck searchedTruck = new Truck();
-        searchedTruck.setTruckId(1);
+        searchedTruck.setId(1);
         searchedTruck.setBrand("a");
         searchedTruck.setKm(1);
 
-        when(truckRepository.findTruckByTruckId(searchedTruck.getTruckId())).thenReturn(searchedTruck);
+        when(truckRepository.findTruckById(searchedTruck.getId())).thenReturn(searchedTruck);
 
-        Truck result = managementService.findTruckById(searchedTruck.getTruckId());
+        Truck result = managementService.findTruckById(searchedTruck.getId());
 
         assertEquals(searchedTruck.getBrand(), result.getBrand());
     }
@@ -56,16 +56,16 @@ public class ManagementServiceTest {
     @DisplayName("Running findTruckById in a sad flow")
     void findTruckByIdSadFlow(){
         Truck searchedTruck = new Truck();
-        searchedTruck.setTruckId(-1);
+        searchedTruck.setId(-1);
         searchedTruck.setBrand("a");
         searchedTruck.setKm(1);
 
-        when(truckRepository.findTruckByTruckId(searchedTruck.getTruckId())).thenReturn(null);
+        when(truckRepository.findTruckById(searchedTruck.getId())).thenReturn(null);
 
         RuntimeException exception = assertThrows(NotFoundException.class,
-                () -> managementService.findTruckById(searchedTruck.getTruckId()));
+                () -> managementService.findTruckById(searchedTruck.getId()));
 
-        assertEquals("Truck with id " + searchedTruck.getTruckId() + " not found", exception.getMessage());
+        assertEquals("Truck with id " + searchedTruck.getId() + " not found", exception.getMessage());
     }
 
 
@@ -73,11 +73,11 @@ public class ManagementServiceTest {
     @DisplayName("Running saveTruck")
     void saveTruck(){
         Truck newTruck = new Truck();
-        newTruck.setBrand("Man");
-        newTruck.setKm(150);
+        newTruck.setBrand("a");
+        newTruck.setKm(1);
 
         Truck savedTruck = new Truck();
-        savedTruck.setTruckId(1);
+        savedTruck.setId(1);
         savedTruck.setBrand(newTruck.getBrand());
         savedTruck.setKm(newTruck.getKm());
 
@@ -89,27 +89,13 @@ public class ManagementServiceTest {
         assertEquals(savedTruck.getBrand(), result.getBrand());
     }
 
-    @Test
-    @DisplayName("Running saveDriver")
-    void saveDriver(){
-        Driver newDriver = new Driver();
-        newDriver.setDriverId(1);
-        newDriver.setDriverFirstName("a");
-
-        when(driverRepository.save(newDriver)).thenReturn(newDriver);
-
-        Driver result = managementService.saveDriver(newDriver);
-
-        assertNotNull(result);
-        assertEquals(newDriver.getDriverFirstName(), result.getDriverFirstName());
-    }
 
     @Test
     @DisplayName("Running Delete Truck By id Happy Flow")
     void deleteTruckByIdHappyFlow(){
 
         Truck toDeleteTruck = new Truck();
-        toDeleteTruck.setTruckId(1);
+        toDeleteTruck.setId(1);
         toDeleteTruck.setBrand("a");
         toDeleteTruck.setKm(1);
 
@@ -119,12 +105,12 @@ public class ManagementServiceTest {
         longHaulList.add(l1);
         longHaulList.add(l2);
 
-        when(truckRepository.deleteTruckByTruckId(toDeleteTruck.getTruckId())).thenReturn(1);
-        when(truckRepository.findTruckByTruckId(toDeleteTruck.getTruckId())).thenReturn(toDeleteTruck);
-        when(driverRepository.findDriverByTruckTruckId(toDeleteTruck.getTruckId())).thenReturn(new Driver());
-        when(longHaulRepository.findLongHaulsByTruckTruckId(toDeleteTruck.getTruckId())).thenReturn(longHaulList);
+        when(truckRepository.deleteTruckById(toDeleteTruck.getId())).thenReturn(1);
+        when(truckRepository.findTruckById(toDeleteTruck.getId())).thenReturn(toDeleteTruck);
+        when(driverRepository.findDriverByTruckId(toDeleteTruck.getId())).thenReturn(new Driver());
+        when(longHaulRepository.findLongHaulsByTruckId(toDeleteTruck.getId())).thenReturn(longHaulList);
 
-        Truck result = managementService.deleteTruckById(toDeleteTruck.getTruckId());
+        Truck result = managementService.deleteTruckById(toDeleteTruck.getId());
 
         assertNotNull(result);
         assertEquals(toDeleteTruck.getBrand(), result.getBrand());
@@ -136,7 +122,7 @@ public class ManagementServiceTest {
     void deleteTruckByIdSadFlow(){
 
         Truck toDeleteTruck = new Truck();
-        toDeleteTruck.setTruckId(1);
+        toDeleteTruck.setId(1);
         toDeleteTruck.setBrand("a");
         toDeleteTruck.setKm(1);
 
@@ -146,14 +132,71 @@ public class ManagementServiceTest {
         longHaulList.add(l1);
         longHaulList.add(l2);
 
-        when(truckRepository.deleteTruckByTruckId(toDeleteTruck.getTruckId())).thenReturn(0);
-        when(truckRepository.findTruckByTruckId(toDeleteTruck.getTruckId())).thenReturn(toDeleteTruck);
-        when(driverRepository.findDriverByTruckTruckId(toDeleteTruck.getTruckId())).thenReturn(new Driver());
-        when(longHaulRepository.findLongHaulsByTruckTruckId(toDeleteTruck.getTruckId())).thenReturn(longHaulList);
+        when(truckRepository.deleteTruckById(toDeleteTruck.getId())).thenReturn(0);
+        when(truckRepository.findTruckById(toDeleteTruck.getId())).thenReturn(toDeleteTruck);
+        when(driverRepository.findDriverByTruckId(toDeleteTruck.getId())).thenReturn(new Driver());
+        when(longHaulRepository.findLongHaulsByTruckId(toDeleteTruck.getId())).thenReturn(longHaulList);
 
         RuntimeException exception = assertThrows(InternalServerError.class,
-                () -> managementService.deleteTruckById(toDeleteTruck.getTruckId()));
+                () -> managementService.deleteTruckById(toDeleteTruck.getId()));
 
-        assertEquals("Deleted count <= 0, but truck with id " + toDeleteTruck.getTruckId() + " exists", exception.getMessage());
+        assertEquals("Deleted count <= 0, but truck with id " + toDeleteTruck.getId() + " exists", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Running modifyTruck")
+    void modifyTruck(){
+
+        Truck modifiedTruck = new Truck();
+        modifiedTruck.setId(1);
+        modifiedTruck.setBrand("a");
+        modifiedTruck.setKm(2);
+
+        Truck dbTruck = new Truck();
+        dbTruck.setId(1);
+        dbTruck.setBrand("b");
+        dbTruck.setKm(1);
+
+        when(truckRepository.findTruckById(modifiedTruck.getId())).thenReturn(dbTruck);
+        when(truckRepository.save(modifiedTruck)).thenReturn(modifiedTruck);
+
+        Truck result = managementService.modifyTruck(modifiedTruck);
+
+        assertNotNull(result);
+        assertEquals(modifiedTruck.getId(), result.getId());
+        assertEquals(modifiedTruck.getBrand(), result.getBrand());
+        assertEquals(modifiedTruck.getKm(), result.getKm());
+    }
+
+
+    @Test
+    @DisplayName("Running saveDriver")
+    void saveDriver(){
+        Driver newDriver = new Driver();
+        newDriver.setId(1);
+        newDriver.setFirstName("a");
+
+        when(driverRepository.save(newDriver)).thenReturn(newDriver);
+
+        Driver result = managementService.saveDriver(newDriver);
+
+        assertNotNull(result);
+        assertEquals(newDriver.getFirstName(), result.getFirstName());
+    }
+
+
+    @Test
+    @DisplayName("Running findDriverById")
+    void findDriverById(){
+        Driver searchedDriver = new Driver();
+        searchedDriver.setFirstName("a");
+        searchedDriver.setId(1);
+
+        when(driverRepository.findDriversById(searchedDriver.getId())).thenReturn(searchedDriver);
+
+        Driver result = managementService.findDriverById(searchedDriver.getId());
+
+        assertNotNull(result);
+        assertEquals(searchedDriver.getFirstName(), result.getFirstName());
     }
 }

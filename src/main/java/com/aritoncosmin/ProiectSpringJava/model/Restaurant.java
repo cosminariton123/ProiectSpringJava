@@ -8,7 +8,7 @@ public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer restaurantsId;
+    private Integer id;
 
     @Column(name = "restaurant_name")
     private String name;
@@ -31,12 +31,12 @@ public class Restaurant {
         this.menu = menu;
     }
 
-    public Integer getRestaurantsId() {
-        return restaurantsId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRestaurantsId(Integer restaurantsId) {
-        this.restaurantsId = restaurantsId;
+    public void setId(Integer restaurantsId) {
+        this.id = restaurantsId;
     }
 
     public String getName() {

@@ -8,7 +8,7 @@ public class ServiceAuto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer serviceAutoId;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -20,12 +20,12 @@ public class ServiceAuto {
     @JoinColumn(name = "inventory_id")
     private Inventory inventory;
 
-    public Integer getServiceAutoId() {
-        return serviceAutoId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setServiceAutoId(Integer serviceAutoId) {
-        this.serviceAutoId = serviceAutoId;
+    public void setId(Integer serviceAutoId) {
+        this.id = serviceAutoId;
     }
 
     public String getName() {

@@ -11,16 +11,16 @@ public class Driver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer driverId;
+    private Integer id;
 
     @Column(name = "driver_first_name")
-    private String driverFirstName;
+    private String firstName;
 
     @Column(name = "driver_last_name")
-    private String driverLastName;
+    private String lastName;
 
     @Column(name = "driver_age")
-    private Integer driverAge;
+    private Integer age;
 
     @OneToOne
     @JoinColumn(name = "truck_id")
@@ -30,36 +30,36 @@ public class Driver {
     @JoinTable
     private List<Playlist> playlists = new ArrayList<>();
 
-    public Integer getDriverId() {
-        return driverId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDriverId(Integer driverId) {
-        this.driverId = driverId;
+    public void setId(Integer driverId) {
+        this.id = driverId;
     }
 
-    public String getDriverFirstName() {
-        return driverFirstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setDriverFirstName(String driverFirstName) {
-        this.driverFirstName = driverFirstName;
+    public void setFirstName(String driverFirstName) {
+        this.firstName = driverFirstName;
     }
 
-    public String getDriverLastName() {
-        return driverLastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setDriverLastName(String driverLastName) {
-        this.driverLastName = driverLastName;
+    public void setLastName(String driverLastName) {
+        this.lastName = driverLastName;
     }
 
-    public Integer getDriverAge() {
-        return driverAge;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setDriverAge(Integer driverAge) {
-        this.driverAge = driverAge;
+    public void setAge(Integer driverAge) {
+        this.age = driverAge;
     }
 
     public Truck getTruck() {

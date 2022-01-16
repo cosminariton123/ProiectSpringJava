@@ -10,7 +10,7 @@ public class LongHaul {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer longHaulId;
+    private Integer id;
 
     @Column(name = "starting_address")
     private String startingAddress;
@@ -34,12 +34,12 @@ public class LongHaul {
         this.hotelList = hotelList;
     }
 
-    public Integer getLongHaulId() {
-        return longHaulId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setLongHaulId(Integer longHaulId) {
-        this.longHaulId = longHaulId;
+    public void setId(Integer longHaulId) {
+        this.id = longHaulId;
     }
 
     public String getStartingAddress() {

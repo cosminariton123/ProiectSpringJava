@@ -10,7 +10,7 @@ public class Playlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer playListId;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -19,12 +19,12 @@ public class Playlist {
     @JoinTable
     private List<Song> songList = new ArrayList<>();
 
-    public Integer getPlayListId() {
-        return playListId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPlayListId(Integer playListId) {
-        this.playListId = playListId;
+    public void setId(Integer playListId) {
+        this.id = playListId;
     }
 
     public String getName() {

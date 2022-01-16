@@ -8,7 +8,7 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer menuId;
+    private Integer id;
 
     @Column(name = "soup")
     private Integer soupWeightInGrams;
@@ -36,12 +36,12 @@ public class Menu {
         this.steakWeightInGrams = steakWeightInGrams;
     }
 
-    public Integer getMenuId() {
-        return menuId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setMenuId(Integer menuId) {
-        this.menuId = menuId;
+    public void setId(Integer menuId) {
+        this.id = menuId;
     }
 
     public Integer getSoupWeightInGrams() {

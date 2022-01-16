@@ -47,6 +47,7 @@ public class ProiectSpringJavaApplication implements CommandLineRunner {
 
 		Song s1 = new Song();
 		Song s2 = new Song();
+		Song s3 = new Song();
 
 		s1.setName("Burning Love");
 		s1.setDuration(69);
@@ -54,15 +55,26 @@ public class ProiectSpringJavaApplication implements CommandLineRunner {
 		s2.setName("Never gonna give you up");
 		s2.setDuration(420);
 
+		s3.setName("Lambada");
+		s3.setDuration(666);
+
 		songRepository.save(s1);
 		songRepository.save(s2);
+		songRepository.save(s3);
 
 		Playlist p1 = new Playlist();
+		Playlist p2 = new Playlist();
+
 		p1.setName("ChefulTiristilor");
+		p2.setName("CursaLunga");
+
 		p1.getSongList().add(s1);
 		p1.getSongList().add(s2);
 
+		p2.getSongList().add(s3);
+
 		playlistRepository.save(p1);
+		playlistRepository.save(p2);
 
 
 
@@ -75,6 +87,8 @@ public class ProiectSpringJavaApplication implements CommandLineRunner {
 
 		Driver d1 = new Driver();
 		d1.setTruck(t1);
+		d1.getPlaylists().add(p1);
+		d1.getPlaylists().add(p2);
 		driverRepository.save(d1);
 
 
