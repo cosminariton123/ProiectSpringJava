@@ -10,7 +10,7 @@ public interface DriverRepository extends JpaRepository<Driver, Integer> {
 
     Driver findDriverByTruckId(Integer id);
 
-    Driver findDriversById(Integer id);
+    Driver findDriverById(Integer id);
 
     Integer deleteDriverById(Integer id);
 

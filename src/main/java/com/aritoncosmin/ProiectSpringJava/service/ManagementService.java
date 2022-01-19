@@ -74,7 +74,7 @@ public class ManagementService {
     }
 
     public Driver findDriverById(Integer driverId){
-        Driver foundDriver = driverRepository.findDriversById(driverId);
+        Driver foundDriver = driverRepository.findDriverById(driverId);
 
         if (foundDriver == null)
             throw new NotFoundException("Driver with id " + driverId + " not found");
@@ -82,7 +82,9 @@ public class ManagementService {
     }
 
     public Driver saveDriver(Driver driver){
-        Driver driverAlreadyAssignedToTruck = driverRepository.findDriverByTruckId(driver.getTruck().getId());
+        Driver driverAlreadyAssignedToTruck = null;
+        if (driver.getTruck() != null)
+            driverAlreadyAssignedToTruck = driverRepository.findDriverByTruckId(driver.getTruck().getId());
 
         if (driverAlreadyAssignedToTruck != null)
             throw new BadRequest("Given truck is already driven by driver with id " + driverAlreadyAssignedToTruck.getId());
