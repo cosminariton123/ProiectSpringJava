@@ -93,7 +93,6 @@ public class ManagementService {
     public Driver modifyDriver(Driver driver){
         Driver foundDriver = findDriverById(driver.getId());
         foundDriver.setTruck(driver.getTruck());
-        foundDriver.setPlaylists(driver.getPlaylists());
         foundDriver.setFirstName(driver.getFirstName());
         foundDriver.setAge(driver.getAge());
         foundDriver.setLastName(driver.getLastName());

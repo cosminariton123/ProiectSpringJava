@@ -1,29 +1,18 @@
 package com.aritoncosmin.ProiectSpringJava.dtos;
 
-import javax.validation.constraints.*;
-import java.util.List;
+import com.aritoncosmin.ProiectSpringJava.model.Truck;
 
-public class DriverModifyDTO {
+public class DriverGetDTO {
 
-    @NotNull(message = "Id must not be null")
     private Integer id;
 
-    @NotNull(message = "firstName must not be null")
-    @NotBlank(message = "firstName must not be blank")
     private String firstName;
 
-    @NotNull(message = "firstName must not be null")
-    @NotBlank(message = "firstName must not be blank")
     private String lastName;
 
-    @NotNull(message = "age must not be null")
-    @Min(value = 18, message = "age must be greater or equal to 18")
-    @Max(value = 150, message = "age must be lower or equal to 150")
     private Integer age;
 
-    private Integer truckId;
-
-
+    private Truck truck;
 
     public Integer getId() {
         return id;
@@ -57,12 +46,11 @@ public class DriverModifyDTO {
         this.age = age;
     }
 
-    public Integer getTruckId() {
-        return truckId;
+    public Truck getTruck() {
+        return truck;
     }
 
-    public void setTruckId(Integer truckId) {
-        this.truckId = truckId;
+    public void setTruck(Truck truck) {
+        this.truck = truck;
     }
-
 }

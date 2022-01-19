@@ -63,10 +63,6 @@ public class ManagementMapper {
         Truck truck = managementService.findTruckById(driverModifyDTO.getId());
         driver.setTruck(truck);
 
-        for (Integer playlistId:
-             driverModifyDTO.getPlaylistIds()) {
-            driver.getPlaylists().add(musicService.findPlaylistById(playlistId));
-        }
         return driver;
     }
 
@@ -98,5 +94,15 @@ public class ManagementMapper {
             longHaul.getHotelList().add(housingService.findHotelById(hotelId));
         }
         return longHaul;
+    }
+
+    public DriverGetDTO DriverToDriverGetDTO(Driver driver){
+        DriverGetDTO driverGetDTO = new DriverGetDTO();
+        driverGetDTO.setId(driver.getId());
+        driverGetDTO.setAge(driver.getAge());
+        driverGetDTO.setFirstName(driver.getFirstName());
+        driverGetDTO.setLastName(driver.getLastName());
+        driverGetDTO.setTruck(driver.getTruck());
+        return driverGetDTO;
     }
 }

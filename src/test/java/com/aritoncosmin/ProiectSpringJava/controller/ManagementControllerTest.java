@@ -1,6 +1,7 @@
 package com.aritoncosmin.ProiectSpringJava.controller;
 
 import com.aritoncosmin.ProiectSpringJava.dtos.DriverCreateDTO;
+import com.aritoncosmin.ProiectSpringJava.dtos.DriverGetDTO;
 import com.aritoncosmin.ProiectSpringJava.dtos.TruckCreateDTO;
 import com.aritoncosmin.ProiectSpringJava.dtos.TruckModifyDTO;
 import com.aritoncosmin.ProiectSpringJava.mappers.ManagementMapper;
@@ -111,9 +112,14 @@ public class ManagementControllerTest {
         searchedDriver.setId(1);
         searchedDriver.setFirstName("a");
 
-        when(managementService.findDriverById(searchedDriver.getId())).thenReturn(searchedDriver);
+        DriverGetDTO driverGetDTO = new DriverGetDTO();
+        driverGetDTO.setId(searchedDriver.getId());
+        driverGetDTO.setFirstName(searchedDriver.getFirstName());
 
-        ResponseEntity<Driver> result = managementController.getDriver(searchedDriver.getId());
+        when(managementService.findDriverById(searchedDriver.getId())).thenReturn(searchedDriver);
+        when(managementMapper.DriverToDriverGetDTO(searchedDriver)).thenReturn(driverGetDTO);
+
+        ResponseEntity<DriverGetDTO> result = managementController.getDriver(searchedDriver.getId());
 
         assertNotNull(result);
         assertEquals(searchedDriver.getFirstName(), result.getBody().getFirstName());

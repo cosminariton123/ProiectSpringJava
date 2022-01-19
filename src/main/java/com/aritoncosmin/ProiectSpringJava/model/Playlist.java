@@ -15,7 +15,7 @@ public class Playlist {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<Song> songList = new ArrayList<>();
 

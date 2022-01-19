@@ -50,8 +50,10 @@ public class ManagementController {
     }
 
     @GetMapping("/driver/{id}")
-    public ResponseEntity<Driver> getDriver(@PathVariable Integer id){
-        return ResponseEntity.ok().body(managementService.findDriverById(id));
+    public ResponseEntity<DriverGetDTO> getDriver(@PathVariable Integer id){
+        Driver foundDriver = managementService.findDriverById(id);
+        DriverGetDTO driverGetDTO = managementMapper.DriverToDriverGetDTO(foundDriver);
+        return ResponseEntity.ok().body(driverGetDTO);
     }
 
     @PostMapping("/driver")
