@@ -7,12 +7,14 @@ import com.aritoncosmin.ProiectSpringJava.model.LongHaul;
 import com.aritoncosmin.ProiectSpringJava.model.Truck;
 import com.aritoncosmin.ProiectSpringJava.service.ManagementService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
+@Validated
 @RequestMapping("/management")
 public class ManagementController {
 

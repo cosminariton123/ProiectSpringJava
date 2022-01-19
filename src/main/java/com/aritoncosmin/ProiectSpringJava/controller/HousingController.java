@@ -7,6 +7,7 @@ import com.aritoncosmin.ProiectSpringJava.model.Menu;
 import com.aritoncosmin.ProiectSpringJava.model.Restaurant;
 import com.aritoncosmin.ProiectSpringJava.service.HousingService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@Validated
 @RequestMapping("/housing")
 public class HousingController {
 
