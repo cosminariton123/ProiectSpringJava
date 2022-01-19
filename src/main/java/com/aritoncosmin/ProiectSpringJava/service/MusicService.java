@@ -76,6 +76,7 @@ public class MusicService {
             driver.setPlaylists(driver.getPlaylists().stream()
                     .filter(p -> p.getId() != foundPlaylist.getId())
                     .collect(Collectors.toList()));
+            managementService.saveDriver(driver);
         }
 
         Integer deletedCount = playlistRepository.deletePlaylistById(foundPlaylist.getId());
@@ -112,7 +113,7 @@ public class MusicService {
         Song foundSong = findSongById(song.getId());
         foundSong.setName(song.getName());
         foundSong.setDuration(song.getDuration());
-        return saveSong(song);
+        return saveSong(foundSong);
     }
 
     @Transactional
@@ -126,6 +127,7 @@ public class MusicService {
              playlist.setSongList(playlist.getSongList().stream()
                     .filter(s -> s.getId() != foundSong.getId())
                     .collect(Collectors.toList()));
+             savePlaylist(playlist);
         }
 
         Integer deleteCount = songRepository.deleteSongById(foundSong.getId());
