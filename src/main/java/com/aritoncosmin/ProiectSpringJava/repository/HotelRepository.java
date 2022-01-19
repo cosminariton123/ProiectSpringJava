@@ -7,4 +7,8 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
     Hotel findHotelById(Integer id);
 
+    Integer deleteHotelById(Integer id);
+
+    Hotel findHotelByRestaurantId(Integer id);
+
 }

@@ -44,10 +44,11 @@ public class MusicController {
     }
 
     @PutMapping("/playlist/driver")
-    public ResponseEntity<Driver> modifyDriverPlaylist(@RequestBody @Valid DriverModifyPlaylistDTO driverModifyPlaylistDTO){
+    public ResponseEntity<DriverModifyPlaylistDTO> modifyDriverPlaylist(@RequestBody @Valid DriverModifyPlaylistDTO driverModifyPlaylistDTO){
         Driver driver = musicMapper.DriverModifyPlaylistDTOToDriver(driverModifyPlaylistDTO);
         Driver savedDriver = musicService.modifyDriverPlaylists(driver);
-        return ResponseEntity.ok().body(savedDriver);
+        DriverModifyPlaylistDTO savedDriverModifyPlaylistDTO = musicMapper.DriverToDriverModifyPlaylist(savedDriver);
+        return ResponseEntity.ok().body(savedDriverModifyPlaylistDTO);
     }
 
     @PostMapping("/playlist")

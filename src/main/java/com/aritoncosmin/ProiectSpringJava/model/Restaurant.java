@@ -16,9 +16,6 @@ public class Restaurant {
     @Column(name = "rating")
     private Integer rating;
 
-    @OneToOne(mappedBy = "restaurant")
-    private Hotel hotel;
-
     @OneToOne
     @JoinColumn(name = "menu_id")
     private Menu menu;
@@ -55,11 +52,4 @@ public class Restaurant {
         this.rating = rating;
     }
 
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
 }

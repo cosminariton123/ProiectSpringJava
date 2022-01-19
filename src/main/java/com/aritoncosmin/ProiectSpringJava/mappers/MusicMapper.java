@@ -50,6 +50,17 @@ public class MusicMapper {
         return driver;
     }
 
+    public DriverModifyPlaylistDTO DriverToDriverModifyPlaylist(Driver driver){
+        DriverModifyPlaylistDTO driverModifyPlaylistDTO = new DriverModifyPlaylistDTO();
+        driverModifyPlaylistDTO.setId(driver.getId());
+
+        for (Playlist playlist:
+             driver.getPlaylists()) {
+            driverModifyPlaylistDTO.getPlaylistIds().add(playlist.getId());
+        }
+        return driverModifyPlaylistDTO;
+    }
+
     public Song SongCreateDTOToSong(SongCreateDTO songCreateDTO){
         Song song = new Song();
         song.setName(songCreateDTO.getName());
