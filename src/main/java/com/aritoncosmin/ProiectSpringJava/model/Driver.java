@@ -26,7 +26,7 @@ public class Driver {
     @JoinColumn(name = "truck_id")
     private Truck truck;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<Playlist> playlists = new ArrayList<>();
 
