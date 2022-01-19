@@ -3,9 +3,7 @@ package com.aritoncosmin.ProiectSpringJava.service;
 import com.aritoncosmin.ProiectSpringJava.exceptions.BadRequest;
 import com.aritoncosmin.ProiectSpringJava.exceptions.InternalServerError;
 import com.aritoncosmin.ProiectSpringJava.exceptions.NotFoundException;
-import com.aritoncosmin.ProiectSpringJava.model.Driver;
-import com.aritoncosmin.ProiectSpringJava.model.LongHaul;
-import com.aritoncosmin.ProiectSpringJava.model.Truck;
+import com.aritoncosmin.ProiectSpringJava.model.*;
 import com.aritoncosmin.ProiectSpringJava.repository.DriverRepository;
 import com.aritoncosmin.ProiectSpringJava.repository.LongHaulRepository;
 import com.aritoncosmin.ProiectSpringJava.repository.PlaylistRepository;
@@ -13,7 +11,9 @@ import com.aritoncosmin.ProiectSpringJava.repository.TruckRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ManagementService {
@@ -86,8 +86,12 @@ public class ManagementService {
         if (driver.getTruck() != null)
             driverAlreadyAssignedToTruck = driverRepository.findDriverByTruckId(driver.getTruck().getId());
 
-        if (driverAlreadyAssignedToTruck != null)
+        if (driverAlreadyAssignedToTruck != null && driverAlreadyAssignedToTruck != driver)
             throw new BadRequest("Given truck is already driven by driver with id " + driverAlreadyAssignedToTruck.getId());
+
+        Set<Playlist> set = new HashSet<Playlist>(driver.getPlaylists());
+        if(set.size() < driver.getPlaylists().size())
+            throw new BadRequest("Given playlist list contains duplicates. Remove the duplicates and try again");
 
         return driverRepository.save(driver);
     }
@@ -123,6 +127,10 @@ public class ManagementService {
     }
 
     public LongHaul saveLongHaul(LongHaul longHaul){
+
+        Set<Hotel> set = new HashSet<Hotel>(longHaul.getHotelList());
+        if(set.size() < longHaul.getHotelList().size())
+            throw new BadRequest("Given hotel list contains duplicates. Remove the duplicates and try again");
         return longHaulRepository.save(longHaul);
     }
 

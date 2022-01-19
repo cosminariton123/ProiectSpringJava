@@ -1,5 +1,6 @@
 package com.aritoncosmin.ProiectSpringJava.service;
 
+import com.aritoncosmin.ProiectSpringJava.exceptions.BadRequest;
 import com.aritoncosmin.ProiectSpringJava.exceptions.InternalServerError;
 import com.aritoncosmin.ProiectSpringJava.exceptions.NotFoundException;
 import com.aritoncosmin.ProiectSpringJava.model.*;
@@ -41,6 +42,13 @@ public class HousingService {
     }
 
     public Hotel saveHotel(Hotel hotel){
+        Hotel hotelThatAlreadyHasAsignedGivenRestaurant = null;
+        if (hotel.getRestaurant() != null)
+            hotelThatAlreadyHasAsignedGivenRestaurant = hotelRepository.findHotelByRestaurantId(hotel.getRestaurant().getId());
+
+        if (hotelThatAlreadyHasAsignedGivenRestaurant != null && hotelThatAlreadyHasAsignedGivenRestaurant != hotel)
+            throw new BadRequest("Given restaurant is already assigned to the hotel with id " + hotelThatAlreadyHasAsignedGivenRestaurant.getId());
+
         return hotelRepository.save(hotel);
     }
 
@@ -64,6 +72,7 @@ public class HousingService {
             longHaul.setHotelList(longHaul.getHotelList().stream()
                     .filter(h -> h.getId() != foundHotel.getId())
                     .collect(Collectors.toList()));
+            managementService.saveLongHaul(longHaul);
         }
 
         Integer deletedCount = hotelRepository.deleteHotelById(foundHotel.getId());
@@ -83,6 +92,12 @@ public class HousingService {
     }
 
     public Restaurant saveRestaurant(Restaurant restaurant){
+        Restaurant restaurantThatAlreadyHasAsignedGivenMenu = null;
+        if (restaurant.getMenu() != null)
+            restaurantThatAlreadyHasAsignedGivenMenu = restaurantRepository.findRestaurantByMenuId(restaurant.getMenu().getId());
+
+        if(restaurantThatAlreadyHasAsignedGivenMenu != null && restaurantThatAlreadyHasAsignedGivenMenu != restaurant)
+            throw new BadRequest("Given menu is already assigned to the restaurant with id " + restaurantThatAlreadyHasAsignedGivenMenu.getId());
         return restaurantRepository.save(restaurant);
     }
 

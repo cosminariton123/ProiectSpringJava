@@ -1,6 +1,7 @@
 package com.aritoncosmin.ProiectSpringJava.service;
 
 
+import com.aritoncosmin.ProiectSpringJava.exceptions.BadRequest;
 import com.aritoncosmin.ProiectSpringJava.exceptions.InternalServerError;
 import com.aritoncosmin.ProiectSpringJava.exceptions.NotFoundException;
 import com.aritoncosmin.ProiectSpringJava.model.Driver;
@@ -12,7 +13,9 @@ import com.aritoncosmin.ProiectSpringJava.repository.SongRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,7 +58,10 @@ public class MusicService {
     }
 
     public Playlist savePlaylist(Playlist playlist){
-         return playlistRepository.save(playlist);
+        Set<Song> set = new HashSet<Song>(playlist.getSongList());
+        if(set.size() < playlist.getSongList().size())
+            throw new BadRequest("Given song list contains duplicates. Remove the duplicates and try again.");
+        return playlistRepository.save(playlist);
     }
 
     public Playlist modifyPlaylist(Playlist playlist){

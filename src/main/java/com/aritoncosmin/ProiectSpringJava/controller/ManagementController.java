@@ -45,7 +45,7 @@ public class ManagementController {
         return ResponseEntity.ok().body(savedTruck);
     }
 
-    @DeleteMapping("truck/{id}")
+    @DeleteMapping("/truck/{id}")
     public ResponseEntity<Truck> deleteTruck(@PathVariable Integer id){
         Truck deletedTruck = managementService.deleteTruckById(id);
         return ResponseEntity.ok().body(deletedTruck);
@@ -66,10 +66,11 @@ public class ManagementController {
     }
 
     @PutMapping("/driver")
-    public ResponseEntity<Driver> modifyDriver(@RequestBody @Valid DriverModifyDTO driverModifyDTO){
+    public ResponseEntity<DriverGetDTO> modifyDriver(@RequestBody @Valid DriverModifyDTO driverModifyDTO){
         Driver driver = managementMapper.DriverModifyDTOToDriver(driverModifyDTO);
         Driver savedDriver = managementService.modifyDriver(driver);
-        return ResponseEntity.ok().body(savedDriver);
+        DriverGetDTO driverGetDTO = managementMapper.DriverToDriverGetDTO(savedDriver);
+        return ResponseEntity.ok().body(driverGetDTO);
     }
 
     @DeleteMapping("/driver/{id}")

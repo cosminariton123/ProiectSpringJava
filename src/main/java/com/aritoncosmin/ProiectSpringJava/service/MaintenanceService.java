@@ -1,5 +1,6 @@
 package com.aritoncosmin.ProiectSpringJava.service;
 
+import com.aritoncosmin.ProiectSpringJava.exceptions.BadRequest;
 import com.aritoncosmin.ProiectSpringJava.exceptions.InternalServerError;
 import com.aritoncosmin.ProiectSpringJava.exceptions.NotFoundException;
 import com.aritoncosmin.ProiectSpringJava.model.Inventory;
@@ -29,6 +30,12 @@ public class MaintenanceService {
     }
 
     public ServiceAuto saveServiceAuto(ServiceAuto serviceAuto){
+        ServiceAuto serviceAutoThatAlreadyHasAsignedGivenInventory = null;
+        if (serviceAuto.getInventory() != null)
+            serviceAutoThatAlreadyHasAsignedGivenInventory = serviceAutoRepository.findServiceAutoByInventoryId(serviceAuto.getInventory().getId());
+
+        if (serviceAutoThatAlreadyHasAsignedGivenInventory != null && serviceAutoThatAlreadyHasAsignedGivenInventory != serviceAuto)
+            throw new BadRequest("Given inventory is already assigned to the serviceAuto with id " + serviceAutoThatAlreadyHasAsignedGivenInventory.getId());
         return serviceAutoRepository.save(serviceAuto);
     }
 

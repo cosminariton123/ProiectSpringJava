@@ -21,8 +21,6 @@ public class DriverCreateDTO {
 
     private Integer truckId;
 
-    private List<Integer> playlistIds;
-
     public String getFirstName() {
         return firstName;
     }
@@ -55,12 +53,5 @@ public class DriverCreateDTO {
         this.truckId = truckId;
     }
 
-    public List<Integer> getPlaylistIds() {
-        return playlistIds;
-    }
-
-    public void setPlaylistIds(List<Integer> playlistIds) {
-        this.playlistIds = playlistIds;
-    }
 
 }

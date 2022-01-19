@@ -50,7 +50,7 @@ public class HousingMapper {
         restaurant.setName(restaurantModifyDTO.getName());
         restaurant.setRating(restaurantModifyDTO.getRating());
 
-        Menu menu = housingService.findMenuById(restaurantModifyDTO.getId());
+        Menu menu = housingService.findMenuById(restaurantModifyDTO.getMenuId());
         restaurant.setMenu(menu);
         return restaurant;
     }

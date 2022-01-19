@@ -33,7 +33,7 @@ public class HousingController {
         return ResponseEntity.ok().body(hotel);
     }
 
-    @GetMapping("hotel/driver/{id}")
+    @GetMapping("/hotel/driver/{id}")
     public ResponseEntity<List<Hotel>> findHotelOnDriverRoute(@PathVariable Integer id){
         List<Hotel> hotels = housingService.findHotelsOnDriverRoute(id);
         return ResponseEntity.ok().body(hotels);

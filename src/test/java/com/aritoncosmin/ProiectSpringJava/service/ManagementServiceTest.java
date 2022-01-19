@@ -3,9 +3,7 @@ package com.aritoncosmin.ProiectSpringJava.service;
 import com.aritoncosmin.ProiectSpringJava.exceptions.BadRequest;
 import com.aritoncosmin.ProiectSpringJava.exceptions.InternalServerError;
 import com.aritoncosmin.ProiectSpringJava.exceptions.NotFoundException;
-import com.aritoncosmin.ProiectSpringJava.model.Driver;
-import com.aritoncosmin.ProiectSpringJava.model.LongHaul;
-import com.aritoncosmin.ProiectSpringJava.model.Truck;
+import com.aritoncosmin.ProiectSpringJava.model.*;
 import com.aritoncosmin.ProiectSpringJava.repository.DriverRepository;
 import com.aritoncosmin.ProiectSpringJava.repository.LongHaulRepository;
 import com.aritoncosmin.ProiectSpringJava.repository.TruckRepository;
@@ -189,8 +187,8 @@ public class ManagementServiceTest {
     }
 
     @Test
-    @DisplayName("Running saveDriver sad flow")
-    void saveDriverSadFlow(){
+    @DisplayName("Running saveDriver sad flow one to one violation")
+    void saveDriverSadFlowOneToOneViolation(){
         Truck truck = new Truck();
         truck.setId(1);
 
@@ -210,6 +208,34 @@ public class ManagementServiceTest {
 
         assertNotNull(exception);
         assertEquals("Given truck is already driven by driver with id " + anotherDriver.getId(), exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Running saveDriver sad flow duplicates problem")
+    void saveDriverSadFlowDuplicatesProblem(){
+        Truck truck = new Truck();
+        truck.setId(1);
+
+        Playlist p1 = new Playlist();
+        p1.setId(1);
+
+        Driver newDriver = new Driver();
+        newDriver.setId(1);
+        newDriver.setFirstName("a");
+        newDriver.setTruck(truck);
+        newDriver.getPlaylists().add(p1);
+        newDriver.getPlaylists().add(p1);
+
+        Driver anotherDriver = new Driver();
+        anotherDriver.setId(1);
+        anotherDriver.setTruck(truck);
+
+        when(driverRepository.findDriverByTruckId(newDriver.getTruck().getId())).thenReturn(newDriver);
+
+        RuntimeException exception = assertThrows(BadRequest.class,
+                () -> managementService.saveDriver(newDriver));
+
+        assertEquals("Given playlist list contains duplicates. Remove the duplicates and try again", exception.getMessage());
     }
 
     @Test
@@ -330,8 +356,8 @@ public class ManagementServiceTest {
     }
 
     @Test
-    @DisplayName("Running saveLongHaul")
-    void saveLongHaul(){
+    @DisplayName("Running saveLongHaul happy flow")
+    void saveLongHaulHappyFlow(){
         LongHaul longHaul = new LongHaul();
         longHaul.setId(1);
 
@@ -340,6 +366,21 @@ public class ManagementServiceTest {
         LongHaul result = managementService.saveLongHaul(longHaul);
 
         assertEquals(longHaul.getId(), result.getId());
+    }
+
+    @Test
+    @DisplayName("Running saveLongHaul sad flow")
+    void saveLongHaulSadFlow(){
+        Hotel h1 = new Hotel();
+        LongHaul longHaul = new LongHaul();
+        longHaul.setId(1);
+        longHaul.getHotelList().add(h1);
+        longHaul.getHotelList().add(h1);
+
+        Exception exception = assertThrows(BadRequest.class,
+                () -> managementService.saveLongHaul(longHaul));
+
+        assertEquals("Given hotel list contains duplicates. Remove the duplicates and try again", exception.getMessage() );
     }
 
     @Test

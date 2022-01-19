@@ -46,10 +46,6 @@ public class ManagementMapper {
         Truck truck = managementService.findTruckById(driverCreateDTO.getTruckId());
         driver.setTruck(truck);
 
-        for (Integer playlistId:
-             driverCreateDTO.getPlaylistIds()) {
-            driver.getPlaylists().add(musicService.findPlaylistById(playlistId));
-        }
         return driver;
     }
 
@@ -60,7 +56,7 @@ public class ManagementMapper {
         driver.setLastName(driverModifyDTO.getLastName());
         driver.setFirstName(driverModifyDTO.getFirstName());
 
-        Truck truck = managementService.findTruckById(driverModifyDTO.getId());
+        Truck truck = managementService.findTruckById(driverModifyDTO.getTruckId());
         driver.setTruck(truck);
 
         return driver;

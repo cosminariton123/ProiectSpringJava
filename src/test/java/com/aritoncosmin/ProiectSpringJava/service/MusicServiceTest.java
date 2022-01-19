@@ -1,5 +1,6 @@
 package com.aritoncosmin.ProiectSpringJava.service;
 
+import com.aritoncosmin.ProiectSpringJava.exceptions.BadRequest;
 import com.aritoncosmin.ProiectSpringJava.exceptions.InternalServerError;
 import com.aritoncosmin.ProiectSpringJava.exceptions.NotFoundException;
 import com.aritoncosmin.ProiectSpringJava.model.Driver;
@@ -139,7 +140,7 @@ public class MusicServiceTest {
     }
 
     @Test
-    void savePlaylist(){
+    void savePlaylistHappyFlow(){
         Playlist playlist = new Playlist();
         playlist.setId(1);
 
@@ -148,6 +149,20 @@ public class MusicServiceTest {
         Playlist result = musicService.savePlaylist(playlist);
 
         assertEquals(playlist.getId(), result.getId());
+    }
+
+    @Test
+    void savePlaylistSadFlow(){
+        Song song = new Song();
+        Playlist playlist = new Playlist();
+        playlist.setId(1);
+        playlist.getSongList().add(song);
+        playlist.getSongList().add(song);
+
+        Exception exception = assertThrows(BadRequest.class,
+                () -> musicService.savePlaylist(playlist));
+
+        assertEquals("Given song list contains duplicates. Remove the duplicates and try again.", exception.getMessage());
     }
 
     @Test
